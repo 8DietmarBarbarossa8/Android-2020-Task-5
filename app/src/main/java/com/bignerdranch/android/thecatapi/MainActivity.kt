@@ -1,6 +1,8 @@
 package com.bignerdranch.android.thecatapi
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +14,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d("LOG", "On clicked!")
 
         recyclerView = findViewById(R.id.recycler)
-        recyclerView.hasFixedSize()
+//        recyclerView.hasFixedSize()
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RecyclerViewCatAdapter(listOf(
             Cat(0, "CAt1", R.drawable.cat),

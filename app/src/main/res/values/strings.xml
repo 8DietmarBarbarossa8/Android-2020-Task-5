@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TheCatAPI</string>
     <string name="todo">TODO</string>
+    <string name="save">Save image in gallery</string>
 </resources>
