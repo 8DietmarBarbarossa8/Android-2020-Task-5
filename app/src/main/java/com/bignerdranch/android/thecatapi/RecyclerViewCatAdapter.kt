@@ -24,7 +24,7 @@ class RecyclerViewCatAdapter(private var catList: List<Cat>, private val context
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cat = catList[position]
-        holder.bind(cat, context)
+        holder.bind(cat)
     }
 
     override fun getItemCount(): Int = catList.size
@@ -38,7 +38,7 @@ class RecyclerViewCatAdapter(private var catList: List<Cat>, private val context
             itemView.setOnClickListener(this)
         }
 
-        fun bind(catItem: Cat, context: Context){
+        fun bind(catItem: Cat){
             this.cat = catItem
             titleTextView.text = catItem.title
             imageCatView.setImageResource(catItem.imageURL)
