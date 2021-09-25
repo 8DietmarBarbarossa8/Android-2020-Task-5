@@ -6,9 +6,10 @@
 
     <TextView
         android:id="@+id/cat_title"
-        android:layout_width="104dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
+        android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,6 +20,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="28dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/todo"
         android:orientation="horizontal"
         android:scaleType="fitCenter"
