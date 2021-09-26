@@ -36,15 +36,15 @@ public class ImageActivity extends AppCompatActivity {
         ImageView saveImageView = findViewById(R.id.saveImageView);
         ImageView shareImageView = findViewById(R.id.shareImageView);
 
+        if (savedInstanceState != null){
+            wasSavedInGallery = savedInstanceState.getBoolean(WSG_KEY);
+            youCheckedSaving = savedInstanceState.getBoolean(YCS_KEY);
+        }
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int imageId = extras.getInt(KEY);
             imageView.setImageResource(imageId);
-        }
-
-        if (savedInstanceState != null){
-            wasSavedInGallery = savedInstanceState.getBoolean(WSG_KEY);
-            youCheckedSaving = savedInstanceState.getBoolean(YCS_KEY);
         }
 
         saveImageView.setOnClickListener(v -> {
@@ -68,7 +68,7 @@ public class ImageActivity extends AppCompatActivity {
         shareImageView.setOnClickListener(v -> {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
             Bitmap bitmap = bitmapDrawable.getBitmap();
-            Uri uri = getImageToShare(bitmap);
+            Uri uri = convertBitmapToUri(bitmap);
 
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
@@ -78,7 +78,7 @@ public class ImageActivity extends AppCompatActivity {
         });
     }
 
-    private Uri getImageToShare(Bitmap bitmap) {
+    private Uri convertBitmapToUri(Bitmap bitmap) {
         File imageFolder = new File(getCacheDir(), "images");
         Uri uri = null;
         try {

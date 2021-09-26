@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/my_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.419" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/saveImageView"
