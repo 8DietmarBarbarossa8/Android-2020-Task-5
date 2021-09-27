@@ -3,18 +3,18 @@ package com.bignerdranch.android.thecatapi
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.bignerdranch.android.thecatapi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(){
+    private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: RecyclerViewCatAdapter
-    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        recyclerView = findViewById(R.id.recycler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recycler.layoutManager = LinearLayoutManager(this)
         adapter = RecyclerViewCatAdapter(listOf(
             Cat(0, "CAt1", R.drawable.cat),
             Cat(1, "CAT@", R.drawable.cat2),
@@ -27,6 +27,6 @@ class MainActivity : AppCompatActivity(){
             Cat(8, "CATNEIN", R.drawable.cat9),
             Cat(9, "Asya", R.drawable.cat10)
         ), this)
-        recyclerView.adapter = adapter
+        binding.recycler.adapter = adapter
     }
 }

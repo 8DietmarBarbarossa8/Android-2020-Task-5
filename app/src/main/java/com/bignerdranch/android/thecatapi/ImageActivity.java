@@ -7,12 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+
+import com.bignerdranch.android.thecatapi.databinding.ActivityImageBinding;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,21 +21,22 @@ import java.io.FileOutputStream;
 public class ImageActivity extends AppCompatActivity {
     final static String KEY = "image_ID";
 
+    private ActivityImageBinding binding;
+
     private final String WSG_KEY = "WSG_KEY";
     private final String YCS_KEY = "YCS_KEY";
 
-    private Boolean wasSavedInGallery = false;
-    private Boolean youCheckedSaving = false;
+    private boolean wasSavedInGallery = false;
+    private boolean youCheckedSaving = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        setContentView(R.layout.activity_image);
 
-        ImageView imageView = findViewById(R.id.my_image_view);
-        ImageView saveImageView = findViewById(R.id.saveImageView);
-        ImageView shareImageView = findViewById(R.id.shareImageView);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+        binding = ActivityImageBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (savedInstanceState != null){
             wasSavedInGallery = savedInstanceState.getBoolean(WSG_KEY);
@@ -44,12 +46,12 @@ public class ImageActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int imageId = extras.getInt(KEY);
-            imageView.setImageResource(imageId);
+            binding.myImageView.setImageResource(imageId);
         }
 
-        saveImageView.setOnClickListener(v -> {
+        binding.saveImageView.setOnClickListener(v -> {
             if (!wasSavedInGallery) {
-                Drawable drawable = imageView.getDrawable();
+                Drawable drawable = binding.myImageView.getDrawable();
                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                 MediaStore.Images.Media.insertImage(getContentResolver(),
                         bitmap, "Cat", "Image of cat");
@@ -65,8 +67,8 @@ public class ImageActivity extends AppCompatActivity {
             }
         });
 
-        shareImageView.setOnClickListener(v -> {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        binding.shareImageView.setOnClickListener(v -> {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.myImageView.getDrawable();
             Bitmap bitmap = bitmapDrawable.getBitmap();
             Uri uri = convertBitmapToUri(bitmap);
 
