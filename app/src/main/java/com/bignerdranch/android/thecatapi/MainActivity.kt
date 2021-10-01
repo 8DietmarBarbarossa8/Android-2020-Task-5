@@ -9,7 +9,7 @@ import com.bignerdranch.android.thecatapi.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var adapter: CatAdapter = CatAdapter()
+    private var catAdapter: CatAdapter = CatAdapter()
     private val catViewModel by viewModels<CatViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,13 +18,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recycler.apply {
-            adapter = adapter
+            adapter = catAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
 
         catViewModel.cats.observe(this, Observer {
             it ?: return@Observer
-            adapter.addItems(it)
+            catAdapter.addItems(it)
         })
     }
 }

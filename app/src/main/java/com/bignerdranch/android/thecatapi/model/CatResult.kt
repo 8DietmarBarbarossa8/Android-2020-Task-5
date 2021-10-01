@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CatResult(
-    @Json(name = "description") val description: String?,
+    @Json(name = "id") val id: String?,
     @Json(name = "url") val url: String?
 )

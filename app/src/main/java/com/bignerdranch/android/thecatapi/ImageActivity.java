@@ -2,6 +2,7 @@ package com.bignerdranch.android.thecatapi;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -43,22 +44,14 @@ public class ImageActivity extends AppCompatActivity {
             youCheckedSaving = savedInstanceState.getBoolean(YCS_KEY);
         }
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int imageId = extras.getInt(KEY);
-            binding.myImageView.setImageResource(imageId);
-        }
+        byte[] byteArray = getIntent().getByteArrayExtra(KEY);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        binding.myImageView.setImageDrawable(new BitmapDrawable(this.getResources(), bitmap));
 
         binding.saveImageView.setOnClickListener(v -> {
             if (!wasSavedInGallery) {
-                Drawable drawable = binding.myImageView.getDrawable();
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                MediaStore.Images.Media.insertImage(getContentResolver(),
-                        bitmap, "Cat", "Image of cat");
-
-                Toast.makeText(getApplicationContext(),
-                        R.string.saved, Toast.LENGTH_SHORT).show();
-
+                saveImageInGallery();
+                Toast.makeText(getApplicationContext(), R.string.saved, Toast.LENGTH_SHORT).show();
                 wasSavedInGallery = true;
             } else if (!youCheckedSaving) {
                 Toast.makeText(getApplicationContext(),
@@ -67,17 +60,7 @@ public class ImageActivity extends AppCompatActivity {
             }
         });
 
-        binding.shareImageView.setOnClickListener(v -> {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.myImageView.getDrawable();
-            Bitmap bitmap = bitmapDrawable.getBitmap();
-            Uri uri = convertBitmapToUri(bitmap);
-
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.setType("image/png");
-
-            startActivity(Intent.createChooser(intent, "Share Via"));
-        });
+        binding.shareImageView.setOnClickListener(v -> shareImageToSocialMedia());
     }
 
     private Uri convertBitmapToUri(Bitmap bitmap) {
@@ -96,6 +79,25 @@ public class ImageActivity extends AppCompatActivity {
             Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return uri;
+    }
+
+    private void saveImageInGallery(){
+        Drawable drawable = binding.myImageView.getDrawable();
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        MediaStore.Images.Media.insertImage(getContentResolver(),
+                bitmap, "Cat", "Image of cat");
+    }
+
+    private void shareImageToSocialMedia(){
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.myImageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        Uri uri = convertBitmapToUri(bitmap);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType("image/png");
+
+        startActivity(Intent.createChooser(intent, "Share Via"));
     }
 
     @Override

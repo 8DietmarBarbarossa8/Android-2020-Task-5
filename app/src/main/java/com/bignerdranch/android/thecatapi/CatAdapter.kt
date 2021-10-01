@@ -3,24 +3,26 @@ package com.bignerdranch.android.thecatapi
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.bignerdranch.android.thecatapi.model.Cat
+import java.io.ByteArrayOutputStream
+import java.lang.Exception
 
 class CatAdapter : RecyclerView.Adapter<CatAdapter.ViewHolder>() {
     private val cats = mutableListOf<Cat>()
     private lateinit var context: Context
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemLayoutView = LayoutInflater.from(parent.context)
         context = parent.context
         val view = itemLayoutView.inflate(R.layout.list_item_cat, parent, false)
@@ -51,14 +53,23 @@ class CatAdapter : RecyclerView.Adapter<CatAdapter.ViewHolder>() {
 
         fun bind(catItem: Cat) {
             this.cat = catItem
-            titleTextView.text = catItem.description
+            titleTextView.text = catItem.id
             imageCatView.load(cat.url)
         }
 
         override fun onClick(v: View?) {
-            val intent = Intent(context, ImageActivity::class.java)
-            intent.putExtra(ImageActivity.KEY, cat.url)
-            startActivity(context, intent, null)
+            try {
+                val bitmap = (imageCatView.drawable as BitmapDrawable).bitmap
+                val stream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val byteArray = stream.toByteArray()
+
+                val intent = Intent(context, ImageActivity::class.java)
+                intent.putExtra(ImageActivity.KEY, byteArray)
+                startActivity(context, intent, null)
+            } catch (e: Exception) {
+                Toast.makeText(context, R.string.image_downloading_error, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

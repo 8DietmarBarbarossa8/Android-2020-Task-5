@@ -4,12 +4,11 @@ import com.bignerdranch.android.thecatapi.model.Cat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import java.lang.Exception
+import retrofit2.converter.gson.GsonConverterFactory
 
 object TheCatApiImplementation {
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .baseUrl("https://api.thecatapi.com")
         .build()
 
@@ -21,13 +20,13 @@ object TheCatApiImplementation {
                 theCatRetrofit.getListOfCats()
                     .map { result ->
                         Cat(
-                            result.description,
+                            result.id,
                             result.url
                         )
                     }
             }
         } catch (e: Exception) {
-            throw e
+            listOf()
         }
     }
 }

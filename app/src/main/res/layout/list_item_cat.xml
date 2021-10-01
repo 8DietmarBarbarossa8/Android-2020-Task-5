@@ -26,7 +26,6 @@
         android:layout_width="250dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/todo"
         android:orientation="horizontal"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,6 +33,7 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cat_title"
-        app:layout_constraintVertical_bias="0.212" />
+        app:layout_constraintVertical_bias="0.212"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
