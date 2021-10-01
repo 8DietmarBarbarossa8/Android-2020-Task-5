@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Забавные коты</string>
+
+    <string name="network_error">Оффлайн режим. Проверьте интернет соединение!</string>
+    <string name="image_downloading_error">Картинка еще не загружена!</string>
+
+    <string name="saved">Картинка сохранена в галерее!</string>
+    <string name="was_saved">Эта картинка была сохранена в галерее!</string>
+</resources>

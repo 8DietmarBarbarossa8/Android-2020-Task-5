@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TheCatAPI</string>
+    <string name="app_name">Funny cats</string>
 
     <string name="network_error">Offline mode. Check your internet connection!</string>
     <string name="image_downloading_error">Image isn`t downloaded yet!</string>

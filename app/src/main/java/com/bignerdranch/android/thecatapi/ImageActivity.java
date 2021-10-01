@@ -20,8 +20,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class ImageActivity extends AppCompatActivity {
-    final static String KEY = "image_ID";
-
     private ActivityImageBinding binding;
 
     private final String WSG_KEY = "WSG_KEY";
@@ -44,7 +42,7 @@ public class ImageActivity extends AppCompatActivity {
             youCheckedSaving = savedInstanceState.getBoolean(YCS_KEY);
         }
 
-        byte[] byteArray = getIntent().getByteArrayExtra(KEY);
+        byte[] byteArray = getIntent().getByteArrayExtra(Keys.IMAGE);
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         binding.myImageView.setImageDrawable(new BitmapDrawable(this.getResources(), bitmap));
 
@@ -63,6 +61,25 @@ public class ImageActivity extends AppCompatActivity {
         binding.shareImageView.setOnClickListener(v -> shareImageToSocialMedia());
     }
 
+    private void saveImageInGallery() {
+        Drawable drawable = binding.myImageView.getDrawable();
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        MediaStore.Images.Media.insertImage(getContentResolver(),
+                bitmap, "Cat", "Image of cat");
+    }
+
+    private void shareImageToSocialMedia() {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.myImageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        Uri uri = convertBitmapToUri(bitmap);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType("image/png");
+
+        startActivity(Intent.createChooser(intent, "Share Via"));
+    }
+
     private Uri convertBitmapToUri(Bitmap bitmap) {
         File imageFolder = new File(getCacheDir(), "images");
         Uri uri = null;
@@ -79,25 +96,6 @@ public class ImageActivity extends AppCompatActivity {
             Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return uri;
-    }
-
-    private void saveImageInGallery(){
-        Drawable drawable = binding.myImageView.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        MediaStore.Images.Media.insertImage(getContentResolver(),
-                bitmap, "Cat", "Image of cat");
-    }
-
-    private void shareImageToSocialMedia(){
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) binding.myImageView.getDrawable();
-        Bitmap bitmap = bitmapDrawable.getBitmap();
-        Uri uri = convertBitmapToUri(bitmap);
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        intent.setType("image/png");
-
-        startActivity(Intent.createChooser(intent, "Share Via"));
     }
 
     @Override

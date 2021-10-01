@@ -1,11 +1,10 @@
-package com.bignerdranch.android.thecatapi
+package com.bignerdranch.android.thecatapi.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bignerdranch.android.thecatapi.api.TheCatApiImplementation
-import com.bignerdranch.android.thecatapi.model.Cat
 import kotlinx.coroutines.launch
 
 class CatViewModel : ViewModel() {

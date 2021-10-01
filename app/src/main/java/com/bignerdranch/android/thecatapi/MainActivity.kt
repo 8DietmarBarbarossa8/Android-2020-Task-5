@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.thecatapi.databinding.ActivityMainBinding
+import com.bignerdranch.android.thecatapi.adapter.CatAdapter
+import com.bignerdranch.android.thecatapi.models.CatViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

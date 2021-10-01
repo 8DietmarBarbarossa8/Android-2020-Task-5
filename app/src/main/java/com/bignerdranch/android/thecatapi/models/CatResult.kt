@@ -1,4 +1,4 @@
-package com.bignerdranch.android.thecatapi.model
+package com.bignerdranch.android.thecatapi.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
