@@ -38,7 +38,7 @@ public class ImageActivity extends AppCompatActivity {
         binding = ActivityImageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             wasSavedInGallery = savedInstanceState.getBoolean(WSG_KEY);
             youCheckedSaving = savedInstanceState.getBoolean(YCS_KEY);
         }
