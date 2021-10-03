@@ -15,7 +15,7 @@ object TheCatApiImplementation {
 
     private val theCatRetrofit = retrofit.create(Api::class.java)
 
-    suspend fun getListOfCats(): List<Cat> {
+    suspend fun getListOfCats(): MutableList<Cat> {
         return try {
             withContext(Dispatchers.IO) {
                 theCatRetrofit.getListOfCats()
@@ -24,10 +24,10 @@ object TheCatApiImplementation {
                             result.id,
                             result.url
                         )
-                    }
+                    }.toMutableList()
             }
         } catch (e: Exception) {
-            listOf()
+            mutableListOf()
         }
     }
 }

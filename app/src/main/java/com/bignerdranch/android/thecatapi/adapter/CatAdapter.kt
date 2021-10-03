@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream
 import java.lang.Exception
 
 class CatAdapter : RecyclerView.Adapter<CatAdapter.ViewHolder>() {
-    private val cats = mutableListOf<Cat>()
+    private val cats = arrayListOf<Cat>()
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +40,7 @@ class CatAdapter : RecyclerView.Adapter<CatAdapter.ViewHolder>() {
     override fun getItemCount(): Int = cats.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addItems(newCats: List<Cat>) {
+    fun addCats(newCats: List<Cat>) {
         cats.addAll(newCats)
         notifyDataSetChanged()
     }
