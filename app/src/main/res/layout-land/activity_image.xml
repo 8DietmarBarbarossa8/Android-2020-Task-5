@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/my_image_view"
-        android:layout_width="500dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -24,23 +24,26 @@
         android:id="@+id/saveImageView"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="100dp"
+        android:layout_gravity="end|bottom"
         android:layout_marginEnd="50dp"
+        android:alpha="0.5"
         android:src="@drawable/ic_baseline_save_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/shareImageView"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
+        android:alpha="0.5"
         android:scaleType="fitCenter"
+        android:layout_gravity="start|bottom"
+        android:layout_marginStart="50dp"
         android:src="?attr/actionModeShareDrawable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

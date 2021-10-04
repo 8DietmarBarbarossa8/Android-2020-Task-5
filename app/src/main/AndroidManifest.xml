@@ -22,10 +22,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheCatAPI">
         <activity
-            android:name=".ImageActivity"
+            android:name=".activities.ImageActivity"
             android:exported="true"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

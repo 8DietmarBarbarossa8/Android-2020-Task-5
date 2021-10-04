@@ -1,4 +1,4 @@
-package com.bignerdranch.android.thecatapi;
+package com.bignerdranch.android.thecatapi.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.bignerdranch.android.thecatapi.R;
 import com.bignerdranch.android.thecatapi.databinding.ActivityImageBinding;
+import com.bignerdranch.android.thecatapi.utils.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,7 +44,7 @@ public class ImageActivity extends AppCompatActivity {
             youCheckedSaving = savedInstanceState.getBoolean(YCS_KEY);
         }
 
-        byte[] byteArray = getIntent().getByteArrayExtra(Keys.IMAGE);
+        byte[] byteArray = getIntent().getByteArrayExtra(Utils.IMAGE_KEY);
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         binding.myImageView.setImageDrawable(new BitmapDrawable(this.getResources(), bitmap));
 

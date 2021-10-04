@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Забавные коты</string>
 
-    <string name="network_error">Оффлайн режим. Проверьте интернет соединение!</string>
+    <string name="network_error">Нет интернет подключения.
+        Проверьте его и проведите по экрану чтобы обновить приложение!</string>
     <string name="image_downloading_error">Картинка еще не загружена!</string>
-    <string name="overdose">Упс, кошачий передоз :-)</string>
+    <string name="overdose_error">Упс, кошачий передоз :-)</string>
+
+    <string name="pagination">Порция котов была добавлена!</string>
 
     <string name="saved">Картинка сохранена в галерее!</string>
     <string name="was_saved">Эта картинка была сохранена в галерее!</string>
+
+    <string name="exit_notification">Нажмите еще раз чтобы выйти!</string>
 </resources>

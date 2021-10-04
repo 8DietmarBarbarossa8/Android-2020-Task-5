@@ -14,8 +14,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bignerdranch.android.thecatapi.ImageActivity
-import com.bignerdranch.android.thecatapi.Keys
+import com.bignerdranch.android.thecatapi.activities.ImageActivity
+import com.bignerdranch.android.thecatapi.utils.Utils
 import com.bignerdranch.android.thecatapi.R
 import com.bignerdranch.android.thecatapi.models.Cat
 import java.io.ByteArrayOutputStream
@@ -68,8 +68,10 @@ class CatAdapter : RecyclerView.Adapter<CatAdapter.ViewHolder>() {
                 val byteArray = stream.toByteArray()
 
                 val intent = Intent(context, ImageActivity::class.java)
-                intent.putExtra(Keys.IMAGE, byteArray)
+                intent.putExtra(Utils.IMAGE_KEY, byteArray)
                 startActivity(context, intent, null)
+
+                Utils.isMayExit = false
             } catch (e: Exception) {
                 Toast.makeText(context, R.string.image_downloading_error, Toast.LENGTH_SHORT).show()
             }
