@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.thecatapi.R
 import com.bignerdranch.android.thecatapi.adapter.CatAdapter
 import com.bignerdranch.android.thecatapi.databinding.ActivityMainBinding
@@ -17,7 +18,6 @@ import com.bignerdranch.android.thecatapi.models.CatViewModel
 import com.bignerdranch.android.thecatapi.utils.Utils
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection
 import kotlin.system.exitProcess
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -50,6 +50,14 @@ class MainActivity : AppCompatActivity() {
         // show message, if hasn't internet connection
         if (!online) binding.noInternetConnectionMessage.visibility = View.VISIBLE
 
+        // give possibility app to search list on weak devices
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                binding.noInternetConnectionMessage.visibility = View.GONE
+                binding.refreshListLayout.direction = SwipyRefreshLayoutDirection.BOTTOM
+            }
+        })
+
         // download start list
         downloadCats(catViewModel, false)
 
@@ -59,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 restartApp()
             else {
                 try {
-                    if (Utils.coefficient < 100) Utils.coefficient++
+                    if (Utils.coefficient < 5) Utils.coefficient++
 
                     for (i in 1..Utils.coefficient)
                         downloadCats(CatViewModel(), true)
