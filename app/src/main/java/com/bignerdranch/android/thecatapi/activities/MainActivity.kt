@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private val catViewModel by viewModels<CatViewModel>()
     private var catAdapter: CatAdapter = CatAdapter()
 
+    private var wasDownloadedPortionYet = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,24 +39,25 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
 
-        // set internet connection status
-        val online = isOnline()
-
         // set swipe refresh direction
         binding.refreshListLayout.direction =
             when {
-                !online -> SwipyRefreshLayoutDirection.TOP
+                !isOnline() -> {
+                    // show message, if hasn't internet connection
+                    binding.noInternetConnectionMessage.visibility = View.VISIBLE
+
+                    SwipyRefreshLayoutDirection.TOP
+                }
                 else -> SwipyRefreshLayoutDirection.BOTTOM
             }
-
-        // show message, if hasn't internet connection
-        if (!online) binding.noInternetConnectionMessage.visibility = View.VISIBLE
 
         // give possibility app to search list on weak devices
         binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 binding.noInternetConnectionMessage.visibility = View.GONE
                 binding.refreshListLayout.direction = SwipyRefreshLayoutDirection.BOTTOM
+
+                wasDownloadedPortionYet = false
             }
         })
 
@@ -65,17 +68,19 @@ class MainActivity : AppCompatActivity() {
         binding.refreshListLayout.setOnRefreshListener {
             if (binding.refreshListLayout.direction == SwipyRefreshLayoutDirection.TOP)
                 restartApp()
-            else {
+            else if (!wasDownloadedPortionYet){
                 try {
-                    if (Utils.coefficient < 5) Utils.coefficient++
+                    if (Utils.countOfPortions < 5) Utils.countOfPortions++
 
-                    for (i in 1..Utils.coefficient)
+                    for (i in 1..Utils.countOfPortions)
                         downloadCats(CatViewModel(), true)
 
                     Toast.makeText(this, R.string.pagination, Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
                     Toast.makeText(this, R.string.overdose_error, Toast.LENGTH_SHORT).show()
                 }
+
+                wasDownloadedPortionYet = true
             }
 
             binding.refreshListLayout.isRefreshing = false
@@ -85,8 +90,7 @@ class MainActivity : AppCompatActivity() {
     private fun isOnline(): Boolean {
         return try {
             val p1 = Runtime.getRuntime().exec("ping -c 1 www.google.com")
-            val returnVal = p1.waitFor()
-            returnVal == 0
+            p1.waitFor() == 0
         } catch (e: Exception) {
             false
         }
