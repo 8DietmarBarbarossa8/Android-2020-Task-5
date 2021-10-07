@@ -16,7 +16,7 @@ class CatViewModel : ViewModel() {
         }
     }
 
-    fun updateListCats(newCats: MutableList<Cat>){
+    fun updateListCats(newCats: MutableList<Cat>) {
         cats.value?.addAll(newCats)
     }
 }

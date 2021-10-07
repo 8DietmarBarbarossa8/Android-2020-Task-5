@@ -9,6 +9,7 @@ object Utils {
 
     // influence how much cats portion need to add
     var countOfPortions = 0
+
     // add possibility to show message notification before exiting
     var isMayExit = false
 }

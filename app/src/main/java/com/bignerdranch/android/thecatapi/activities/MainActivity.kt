@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         binding.refreshListLayout.setOnRefreshListener {
             if (binding.refreshListLayout.direction == SwipyRefreshLayoutDirection.TOP)
                 restartApp()
-            else if (!wasDownloadedPortionYet){
+            else if (!wasDownloadedPortionYet) {
                 try {
                     if (Utils.countOfPortions < 5) Utils.countOfPortions++
 
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun restartApp(){
+    private fun restartApp() {
         val packageManager: PackageManager = packageManager
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         val componentName = intent?.component
